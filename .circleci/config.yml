@@ -13,6 +13,7 @@ jobs:
           name: Terraform Init
           command: terraform init
   plan:
+    <<: *defaults
     steps:
       - checkout
       - run: 

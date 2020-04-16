@@ -25,7 +25,7 @@ jobs:
           at: ~/circleci-training
       - run:
           name: Terraform Plan
-          command: terraform plan -no-color -out=tfplan  -input=false
+          command: terraform plan -out=tfplan  -input=false
       - store_artifacts:
           path: ~/circleci-training/tfplan
           destination: tfplan
@@ -39,10 +39,10 @@ jobs:
           at: ~/circleci-training
       - run:
           name: Terraform Apply
-          command: terraform apply -input=false -auto-approve tfplan
+          command: terraform apply -auto-approve tfplan
       - run:
           name: Show
-          command: terraform show -no-color > tfresult
+          command: terraform show  > tfresult
       - store_artifacts:
           path: ~/circleci-training/tfresult
           destination: tfresult

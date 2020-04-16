@@ -40,7 +40,13 @@ resource "aws_iam_role_policy" "test_policy" {
       "Action": "ec2:*",
       "Effect": "Allow",
       "Resource": "*"
-    }
+    },
+    {
+      "Sid": "IAMFullAcess",
+      "Action": "iam:*",
+      "Effect": "Allow",
+      "Resource": "*"
+    },
   ]
 }
 EOF

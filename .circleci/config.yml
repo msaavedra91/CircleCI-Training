@@ -1,8 +1,11 @@
 version: 2
 
 defaults: &defaults
+  working_directory: ~/circleci-training
   docker:
     - image: hashicorp/terraform
+  environment:
+    TF_IN_AUTOMATION: true
 
 jobs:
   init:
@@ -12,10 +15,14 @@ jobs:
       - run: 
           name: Terraform Init
           command: terraform init
+      - persist_to_workspace:
+            root: ~/circleci-training
+            paths: .
   plan:
     <<: *defaults
     steps:
-      - checkout
+      - attach_workspace:
+          at: ~/circleci-training
       - run: 
           name: Terraform Plan
           command: terraform plan
@@ -23,7 +30,7 @@ jobs:
 
 workflows:
   version: 2
-  build:
+  build_deploy:
     jobs:
       - init
       - plan:

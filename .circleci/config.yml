@@ -1,0 +1,16 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: hashicorp/terraform
+    steps:
+      - checkout
+      - run: terraform init
+      - run: terraform plan
+
+
+workflows:
+  version: 2.1
+  build:
+    jobs:
+      - build

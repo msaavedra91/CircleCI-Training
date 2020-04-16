@@ -12,21 +12,40 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - run: 
+      - run:
           name: Terraform Init
-          command: terraform init
+          command: terraform init -input=false
       - persist_to_workspace:
-            root: ~/circleci-training
-            paths: .
+          root: ~/circleci-training
+          paths: .
   plan:
     <<: *defaults
     steps:
       - attach_workspace:
           at: ~/circleci-training
-      - run: 
+      - run:
           name: Terraform Plan
-          command: terraform plan
-    
+          command: terraform plan -no-color -out=tfplan  -input=false
+      - store_artifacts:
+          path: ~/circleci-training/tfplan
+          destination: tfplan
+      - persist_to_workspace:
+          root: ~/circleci-training
+          paths: .
+  apply:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/circleci-training
+      - run:
+          name: Terraform Apply
+          command: terraform apply -input=false -auto-approve tfplan
+      - run:
+          name: Show
+          command: terraform show -no-color > tfresult
+      - store_artifacts:
+          path: ~/circleci-training/tfresult
+          destination: tfresult
 
 workflows:
   version: 2
@@ -36,3 +55,10 @@ workflows:
       - plan:
           requires:
             - init
+      - apply:
+          requires:
+            - plan
+          filters:
+            branches:
+              only:
+                - master

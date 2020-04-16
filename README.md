@@ -1,1 +1,1 @@
-# circleci-traingin
+# circleci-training

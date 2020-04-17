@@ -67,7 +67,6 @@ workflows:
             - plan
       - apply:
           requires:
-            - hold
             - plan
           filters:
             branches:

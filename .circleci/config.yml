@@ -39,7 +39,7 @@ jobs:
           at: ~/circleci-training
       - run:
           name: Terraform Apply
-          command: terraform apply -auto-approve tfplan
+          command: terraform apply -input=false -auto-approve tfplan
       - run:
           name: Show
           command: terraform show  > tfresult
@@ -56,6 +56,7 @@ workflows:
           requires:
             - init
       - apply:
+          type: approval
           requires:
             - plan
           filters:

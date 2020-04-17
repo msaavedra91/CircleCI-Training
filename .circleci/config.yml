@@ -57,10 +57,9 @@ workflows:
             - init
       - hold:
           type: approval
-          requires:
-            - plan
       - apply:
           requires:
+            - hold
             - plan
           filters:
             branches:

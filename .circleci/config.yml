@@ -55,11 +55,8 @@ workflows:
       - plan:
           requires:
             - init
-      - hold:
-          type: approval
-          requires:
-            - plan
       - apply:
+          type: approval
           requires:
             - plan
           filters:

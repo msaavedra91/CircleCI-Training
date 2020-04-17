@@ -47,7 +47,7 @@ jobs:
           path: ~/circleci-training/tfresult
           destination: tfresult
   destroy:
-    <<: *default_config
+    <<: *defaults
     steps:
       - run:
           name: Terraform destroy

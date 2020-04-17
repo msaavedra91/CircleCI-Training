@@ -49,6 +49,8 @@ jobs:
   destroy:
     <<: *defaults
     steps:
+      - attach_workspace:
+          at: ~/circleci-training
       - run:
           name: Terraform destroy
           command: terraform destroy --auto-approve

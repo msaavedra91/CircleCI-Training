@@ -46,17 +46,6 @@ jobs:
       - store_artifacts:
           path: ~/circleci-training/tfresult
           destination: tfresult
-  destroy:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: ~/circleci-training
-      - run:
-          name: Terraform destroy
-          command: terraform destroy --auto-approve
-      - persist_to_workspace:
-          root: ~/circleci-training
-          paths: .
 
 workflows:
   version: 2
@@ -77,6 +66,3 @@ workflows:
             branches:
               only:
                 - master
-      - destroy:
-          requires:
-            - hold

@@ -56,7 +56,6 @@ workflows:
           requires:
             - init
       - apply:
-          type: approval
           requires:
             - plan
           filters:
